@@ -94,6 +94,44 @@ its easy from there.
 
 ---->Because the body of questions are in markdown syntax, we will pass it like below to not be rendered as text.
     then we will add a new accessr to encapsulate body to html .
+
+
+
+---->For Authorization on editing and deleting questions there is 2 ways to handle it: 
+    1) Gate :
+        we can go to AuthServiceProvider, in the 'boot' method define gates for update and delete.
+        then from the controller call to these gates like this: 
+            \Gate::denies('name', $params)  or \Gate::allows('name', $params) 
+        
+        lookat /questions/index.blade.php  to see how to show update and delete buttons only for question owner.
+
+        so simply put : define gate in provider, use in controller or view
+
+        Ex:  'update-question', 'delete-question' gate and edit, update,delete method in question controller.
+
+    2) Policy :
+        first we need to create a policy class.in terminal use 
+            $ php artisan make:policy <NAme>  --model=<NaME of MODEL>
+        you will see in created file that there a method for each of the methods in model.
+        note: if u dont use a model flag it will generate an empty class .
+
+        so after defining the authorization rule and adding the crated policy to AuthServiceProvider policies array,
+        for each of the methods or the methods u want to have authorization impelemnted on them,
+        you can go to controller and simply call to authorize method like below and pass the args needed
+            // $this->authorize($args);
+        
+        Ex: update and delete on QuestionController and QuestionPolicy.
+
+        and for showing the buttons in view only for the owner, you call to policy method name instead 
+        of the Gate-name in /questions/index.blade.php 
+            @can ('update', $question)
+            @endcan
+
+
+
+---->the cunstructor is a special method that will be excuted first time when a class is instanciated,
+    to prevent unlogged on users from accessing the methods, we will check every req with a middlware in construct
+
 ###################################################################################################################################
 
 #relations

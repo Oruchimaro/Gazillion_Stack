@@ -7,6 +7,14 @@ use App\Http\Requests\AskQuestionRequest;
 
 class QuestionController extends Controller
 {
+    /**we will define a constructor here to prevent seeing the Ask Question button without loging in,  ReadMe.md, line:132  */
+    public function __construct ()
+    {
+        //  $this->middleware('auth')->except('index', 'show');
+         $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+
     public function index()
     {
         $questions = Question::with('user')->latest()->paginate(5); //eager load user relation using "with", see {readme.md, line:26 }
@@ -45,15 +53,36 @@ class QuestionController extends Controller
 
     public function edit(Question $question)
     {
+        /**using the policy for authorization */
+        // $this->authorize($question);
+
+
+        /**using the gate for authorization */
+        //there is no need for passing current user to gate, cause laravel will handle it 
+        if( \Gate::denies('update-question', $question) )
+        {
+            abort(403, 'Access Denied.');
+        }
         return view("questions.edit", compact('question'));
     }
 
 
     public function update(AskQuestionRequest $request, Question $question)
     {
+        /**using the gate for authorization */
+        if( \Gate::denies('update-question', $question) )
+        {
+            abort(403, 'Access Denied.');
+        }
+
+
+        /**using the policy for authorization */
+        // $this->authorize($question);
+
         $question->update(
             $request->only('title', 'body')
         );
+
 
         return redirect('/questions')->with('success', "Updated your question.");
     }
@@ -61,9 +90,22 @@ class QuestionController extends Controller
     
     public function destroy(Question $question)
     {
+        /**using the policy for authorization */
+        // $this->authorize($question);
+
+
+        /**using the gate for authorization */
+        if( \Gate::denies('delete-question', $question) )
+        {
+            abort(403, 'Access Denied.');
+        }
+
         $question->delete();
 
-        return redirect()->route('questions.index')
+        // return redirect()->route('questions.index')
+        // ->with('success', "Your question has been Deleted."); 
+
+        return redirect()->back()
         ->with('success', "Your question has been Deleted."); 
     }
 }

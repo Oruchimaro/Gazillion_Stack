@@ -39,16 +39,27 @@
                                 <div class="d-flex align-items-center">
                                     <h3 class="mt-0"> <a href="{{ $question->url }}"> {{ $question->title }}  </a> </h3>
                                     <div class="ml-auto">
-                                        <a class="btn btn-sm btn-outline-info" href=" {{ route('questions.edit', $question->id ) }} "> Edit </a>
 
-                                        {{-- README.md , line: 80 --}}
-                                        <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
-                                            @method('DELETE')
-                                            {{ csrf_field() }}
+                                        @guest
+                                            
+                                        @else
+                                            @if( Auth::user()->can('update-question', $question) )
+                                                <a class="btn btn-sm btn-outline-info" href=" {{ route('questions.edit', $question->id ) }} "> Edit </a>
+                                            @endif
 
-                                            <button type="submit" class="btn btn-sm btn-outline-danger" 
-                                            onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
+                                            @if( Auth::user()->can('delete-question', $question) )
+
+                                                {{-- README.md , line: 80 --}}
+                                                <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                                                    @method('DELETE')
+                                                    {{ csrf_field() }}
+
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                                    onclick="return confirm('Are you sure?')">Delete</button>
+                                                </form>
+                                            @endif
+                                        @endguest
+
                                     </div>
                                 </div>
                                 
@@ -57,7 +68,7 @@
 
                                     <small class="text-muted"> {{ $question->created_date }} </small>
                                 </p>
-                                {{ str_limit($question->body, 250) }}
+                                {!! str_limit($question->body, 250) !!}
                             </div>
                         </div>
                         <hr>
