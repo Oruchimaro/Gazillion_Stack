@@ -18,11 +18,24 @@ class Question extends Model
     }
 
     /***************************************Helpers **************************************/
+
+    /**these accessors help format Elquent attribytes when we retrive them from model instances*/
+    public function getUrlAttribute()
+    {
+        return route('questions.show', $this->id);
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();  //created_at is a carbon instance, so diffForHumans or format("d/m/Y") will work
+    }
+
     /**mutator for setting the slug as title */
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);  //str_slug converts string to slug format{lowercase with dash seperator}
     }
-    
-}
+
+
+}//End of model

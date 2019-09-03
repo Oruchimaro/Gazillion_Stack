@@ -31,4 +31,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Question::class);
     }
-}
+    /***************************************Helpers **************************************/
+    /**these accessors help format Elquent attribytes when we retrive them from model instances*/
+    public function getUrlAttribute()
+    {
+        return route('questions.show', $this->id);
+        return '#';
+    }
+}//End of Model
