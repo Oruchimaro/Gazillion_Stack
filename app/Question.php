@@ -22,13 +22,19 @@ class Question extends Model
     /**these accessors help format Elquent attribytes when we retrive them from model instances*/
     public function getUrlAttribute()
     {
-        return route('questions.show', $this->id);
+        // return route('questions.show', $this->id);
+        return route('questions.show', $this->slug); //this will return a slug instad of id
     }
+
+
 
     public function getCreatedDateAttribute()
     {
         return $this->created_at->diffForHumans();  //created_at is a carbon instance, so diffForHumans or format("d/m/Y") will work
     }
+
+
+
 
     public function getStatusAttribute ()
     {
@@ -43,12 +49,24 @@ class Question extends Model
         return "unanswered";
     }
 
+
+
+
+    public function getBodyHtmlAttribute ()
+    {
+        return \Parsedown::instance()->text($this->body);
+    }
+
+
+
+    
     /**mutator for setting the slug as title */
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);  //str_slug converts string to slug format{lowercase with dash seperator}
     }
+
 
 
 }//End of model

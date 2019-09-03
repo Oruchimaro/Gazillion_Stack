@@ -29,13 +29,17 @@ class QuestionController extends Controller
         ); 
 
         return redirect()->route('questions.index')
-        ->with('success', "Submitted ypur question."); //we will show the flash message in layout folder
+        ->with('success', "Submitted your question."); //we will show the flash message in layout folder
     }
 
 
     public function show(Question $question)
     {
+        // $question->views = $question->views +1 ;
+        // $question->save();
 
+        $question->increment('views'); //this is the same as the above code, its cleaner
+        return view('questions.show', compact('question'));
     }
 
 
@@ -51,12 +55,15 @@ class QuestionController extends Controller
             $request->only('title', 'body')
         );
 
-        return redirect('/questions')->with('success', "Updated ypur question.");
+        return redirect('/questions')->with('success', "Updated your question.");
     }
 
     
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect()->route('questions.index')
+        ->with('success', "Your question has been Deleted."); 
     }
 }

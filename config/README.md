@@ -74,6 +74,26 @@ its easy from there.
 
 ---->HTML5 cant understand put,patch,delete methods, so we use the post as form action,
     then define a method_field('') with the actuall method
+
+
+
+---->cause we have a destroy mehtod in resource controller , for deleting  we send a delete request to controller
+    so we need a a form for it .take notice to csrf filed and method filed
+    we can use {{ csrf_field() }} or @csrf 
+    also we can user {{ method_field('') }}  or @method('')
+
+
+---->we want to make urls user freindly, so we will use slug instead of id for QuestionController@show.
+    this is a way to make controller use slug instead of id just for one route.
+    we exclude it from resource route and define it seperatly.
+    then we will implement routeModelBinding:
+    go to App/Providers/RouteServiseProvider.php, in 'boot' function bind your custom route parameter.
+    the next thing is to change the url in our view ie; change the getter in Question model to send slug instead of id.
+
+
+
+---->Because the body of questions are in markdown syntax, we will pass it like below to not be rendered as text.
+    then we will add a new accessr to encapsulate body to html .
 ###################################################################################################################################
 
 #relations
