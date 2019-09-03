@@ -63,11 +63,17 @@ its easy from there.
 
 
 ---->we can make seprate files for complex validations on requests, 
+
     $ php artisan make:request <Name of request>
 
     in the created file the rules can be created in 'rules()' method.
 
     then you can use it as its shown in QuestionController@store(lookat the arguments to store function).import it first :)
+
+
+
+---->HTML5 cant understand put,patch,delete methods, so we use the post as form action,
+    then define a method_field('') with the actuall method
 ###################################################################################################################################
 
 #relations

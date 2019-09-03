@@ -36,8 +36,13 @@
                             <div class="media-body">
                                 {{-- <h3 class="mt-0"> <a href="{{ route('questions.show', $question->id) }}"> {{ $question->title }} ? </a> </h3> --}}
                                 {{-- look at: readme.md, line 20 {question->url, question->created_date, question->user->url}--}}
-
-                                <h3 class="mt-0"> <a href="{{ $question->url }}"> {{ $question->title }}  </a> </h3>
+                                <div class="d-flex align-items-center">
+                                    <h3 class="mt-0"> <a href="{{ $question->url }}"> {{ $question->title }}  </a> </h3>
+                                    <div class="ml-auto">
+                                        <a class="btn btn-sm btn-outline-info" href=" {{ route('questions.edit', $question->id ) }} "> Edit </a>
+                                    </div>
+                                </div>
+                                
                                 <p class="lead">
                                     Asked By <a href=" {{ $question->user->url }} "> {{ $question->user->name }} </a>
 

@@ -13,11 +13,13 @@ class QuestionController extends Controller
         return view('questions.index', compact('questions'));
     }
 
+
     public function create()
     {
         $question = new Question();
         return view('questions.create', compact('question'));
     }
+
 
     public function store(AskQuestionRequest $request)
     {
@@ -30,21 +32,29 @@ class QuestionController extends Controller
         ->with('success', "Submitted ypur question."); //we will show the flash message in layout folder
     }
 
+
     public function show(Question $question)
     {
 
     }
 
+
     public function edit(Question $question)
     {
-        //
+        return view("questions.edit", compact('question'));
     }
 
-    public function update(Request $request, Question $question)
+
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update(
+            $request->only('title', 'body')
+        );
+
+        return redirect('/questions')->with('success', "Updated ypur question.");
     }
 
+    
     public function destroy(Question $question)
     {
         //
