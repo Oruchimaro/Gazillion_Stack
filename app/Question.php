@@ -30,6 +30,19 @@ class Question extends Model
         return $this->created_at->diffForHumans();  //created_at is a carbon instance, so diffForHumans or format("d/m/Y") will work
     }
 
+    public function getStatusAttribute ()
+    {
+        if( $this->answers > 0 )
+        {
+            if($this->best_answer_id)
+            {
+                return "answer-accepted";
+            }
+            return "answered";
+        }
+        return "unanswered";
+    }
+
     /**mutator for setting the slug as title */
     public function setTitleAttribute($value)
     {

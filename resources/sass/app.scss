@@ -1,4 +1,4 @@
-// Fonts
+ // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
@@ -6,3 +6,56 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.navbar-laravel
+{
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(100, 0, 0, 0.04);
+}
+
+.counters
+{
+    margin-right: 30px;
+    font-size: 10px;
+    text-align: center;
+
+    strong
+    {
+        display: block;
+        font-size: 2em;
+    }
+    .vote,
+    .answer
+    {
+        width: 60px;
+        height: 60px;
+    }
+
+    .status
+    {
+        &.unanswered 
+        {
+            border: none;
+        }
+
+        &.answered
+        {
+            border: 1px solid $green;
+            border-radius: 4px;
+            color: $green;
+        }
+
+        &.answer-accepted
+        {
+            background: $green;
+            border-radius: 4px;
+
+            color: $white;
+        }
+    }
+
+    .view
+    {
+        margin-top: 10px;
+    }
+}
