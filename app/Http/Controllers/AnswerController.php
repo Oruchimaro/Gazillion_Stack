@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
+    public function __construct ()
+    {
+        //  $this->middleware('auth')->except('index', 'show');
+         $this->middleware('auth');
+    }
 
     /**
      *  route is 'questions/{question}/answers ' so we need to get a instance of question in the first arg of store()

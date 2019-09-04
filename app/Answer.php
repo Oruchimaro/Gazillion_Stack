@@ -53,11 +53,11 @@ class Answer extends Model
 
 
 
+
     public function getBodyHtmlAttribute ()
     {
         return \Parsedown::instance()->text($this->body);
     }
-
 
 
 
@@ -66,8 +66,24 @@ class Answer extends Model
         return $this->created_at->diffForHumans();  //created_at is a carbon instance, so diffForHumans or format("d/m/Y") will work
     }
 
+
+
     public function getStatusAttribute()
     {
-        return $this->id === $this->question->best_answer_id ? 'vote-accepted' : '';
+        return $this->isBest() ? 'vote-accepted' : '';
     }
+
+
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
+        
+    }
+
+    public function isBest()
+    {
+        return $this->id === $this->question->best_answer_id;
+    }
+
+    
 }

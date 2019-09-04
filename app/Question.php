@@ -24,6 +24,12 @@ class Question extends Model
 
     /***************************************Helpers **************************************/
 
+    public function acceptBestAnswer(Answer $answer)
+    {
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
+
     /**these accessors help format Elquent attribytes when we retrive them from model instances*/
     public function getUrlAttribute()
     {

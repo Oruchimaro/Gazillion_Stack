@@ -19,9 +19,24 @@
                             <a title="This answer is not useable" class="vote-down off "> 
                                 <i class="far fa-thumbs-down fa-3x"></i>
                             </a>
-                            <a title="Mark as best answer" class=" {{ $answer->status }} "> 
-                                <i class="fas fa-check-double fa-2x "></i>                             
-                            </a>
+                            @can('accept', $answer)
+                                <a title="Mark as best answer" class=" {{ $answer->status }} " 
+                                    onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit(); "> 
+                                    <i class="fas fa-check-double fa-2x "></i>                             
+                                </a>
+
+                                <form id="accept-answer-{{ $answer->id }}" style="display:none;"
+                                    action="{{ route('answers.accept', $answer->id) }}" method="POST">
+                                    @csrf
+                                </form>
+                            @else
+                                @if ($answer->is_best)
+                                <a title="The owner accepted this answer as best" class=" {{ $answer->status }} " > 
+                                    <i class="fas fa-check-double fa-2x "></i>                             
+                                </a>
+                                @endif
+                            @endcan
+
                         </div>
 
                         <div class="media-body">

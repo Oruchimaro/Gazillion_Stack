@@ -1,5 +1,6 @@
 <?php
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -7,12 +8,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('questions', 'QuestionController')->except(['show']);  //README.md, line:85
 Route::get('/questions/{slug}', 'QuestionController@show')->name('questions.show');
-Route::resource('questions', 'QuestionController')->except('questions');  //README.md, line:85
 Route::resource('questions.answers', 'AnswerController')->except(['index', 'create', 'show']);
+Route::post('/answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept'); //single action controller
 
-
-// Route::post('/questions/{question}/answers', 'AnswerController@store')->name('answers.store');
 
 
 
