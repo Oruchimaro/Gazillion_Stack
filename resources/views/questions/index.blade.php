@@ -40,6 +40,7 @@
                                     <h3 class="mt-0"> <a href="{{ $question->url }}"> {{ $question->title }}  </a> </h3>
                                     <div class="ml-auto">
 
+                                        {{-- Edit and delete  --}}
                                         @guest
                                             
                                         @else

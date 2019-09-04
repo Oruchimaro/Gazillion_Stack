@@ -10690,3 +10690,46 @@ form.form-delete {
   display: inline;
 }
 
+.vote-controls {
+  min-width: 60px;
+  margin-right: 30px;
+  text-align: center;
+  color: #3490dc;
+}
+
+.vote-controls span,
+.vote-controls a {
+  margin: 10px 0px;
+}
+
+.vote-controls #am-1 {
+  display: block;
+  margin-top: 0;
+}
+
+.vote-controls span.votes-count {
+  font-size: 25px;
+}
+
+.vote-controls span.favorites-count {
+  font-size: 12px;
+}
+
+.vote-controls a {
+  cursor: pointer;
+}
+
+.vote-controls a.off,
+.vote-controls a.off:hover {
+  color: #6cb2eb;
+}
+
+.vote-controls a.favorite.favorited,
+.vote-controls a.favorite.favorited:hover {
+  color: #ebd404;
+}
+
+.vote-controls a.vote-accepted {
+  color: #38c172;
+}
+
