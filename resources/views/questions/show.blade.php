@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="card-body">
-                    {{-- README.md, line: 95 --}}
+                    {{-- DOCUMENTATION.md, line: 95 --}}
                     {!! $question->body_html !!}
                 </div>
             </div>

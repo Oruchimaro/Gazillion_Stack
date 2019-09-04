@@ -2,7 +2,7 @@
 This a course from Udemy Fullstack web development with laravel and VueJS, creating a Q&A site like stackoverflow,
 
 #installation
-At the end of this file ...
+Goto README.md
 
 
 #notes:
@@ -132,7 +132,26 @@ its easy from there.
 ---->the cunstructor is a special method that will be excuted first time when a class is instanciated,
     to prevent unlogged on users from accessing the methods, we will check every req with a middlware in construct
 
+---->after creating Answer model and defining its relation with Question model we noticed that there is a problem with our code,
+    if the relation method name be "answers()" then because we have a answers column in our database questions table,
+    when we access the dynamic property of this relation we will get in trouble.
+    when we call // $question->answers()->count(); // we will be okay, but when we access 
+    // $question->answers->count();// and then loop the answers like //foreach ($question->answers as $answer)// then it will fail,
+    because laravel first checks the existance of coulumn name in databse table and if it doesnt exist then it finds
+    its relationship method then it will be shown as dynamic property. but if it exists elequent will return the actual 
+    columns value.
+    so to fix this we can change relation name or change things in db and view and factory.we will do the second one.
+    so we change the $question->answers to $question->answers_count  in Question model, 
+    QuestionPolicy, questions/index.blade.php, QuestionFactory
+    and then create a new migration 
+        $ composer require doctrine/dbal //this package is needed
+        $ php artisan make:migration rename_answers_in_questions_table --table=questions
+
 ###################################################################################################################################
 
 #relations
 user() ( 1 - M ) questions() { User ( 1 - M ) Question }
+
+question() ( 1 - M ) answers() { Question (1 - M) Answer }
+
+user() ( 1 - M ) answers() { User (1 - M) Answer }

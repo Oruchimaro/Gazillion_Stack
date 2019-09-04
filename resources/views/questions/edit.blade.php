@@ -17,7 +17,7 @@
                 <div class="card-body">
 
                     <form action="{{ route('questions.update', $question->id) }}" method="post">
-                        {{-- ReadME.md, line 75 --}}
+                        {{-- DOCUMENTATION.md, line 75 --}}
                         {{ @method_field('PUT') }}
                         @include('questions._form', ['buttonText' => "Update Question"])
                     </form>

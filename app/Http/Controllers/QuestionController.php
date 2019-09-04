@@ -7,7 +7,7 @@ use App\Http\Requests\AskQuestionRequest;
 
 class QuestionController extends Controller
 {
-    /**we will define a constructor here to prevent seeing the Ask Question button without loging in,  ReadMe.md, line:132  */
+    /**we will define a constructor here to prevent seeing the Ask Question button without loging in,  DOCUMENTATION.md, line:132  */
     public function __construct ()
     {
         //  $this->middleware('auth')->except('index', 'show');
@@ -17,7 +17,7 @@ class QuestionController extends Controller
 
     public function index()
     {
-        $questions = Question::with('user')->latest()->paginate(5); //eager load user relation using "with", see {readme.md, line:26 }
+        $questions = Question::with('user')->latest()->paginate(5); //eager load user relation using "with", see {DOCUMENTATION.md, line:26 }
         return view('questions.index', compact('questions'));
     }
 

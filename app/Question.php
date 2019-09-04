@@ -17,6 +17,11 @@ class Question extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
     /***************************************Helpers **************************************/
 
     /**these accessors help format Elquent attribytes when we retrive them from model instances*/
@@ -38,7 +43,7 @@ class Question extends Model
 
     public function getStatusAttribute ()
     {
-        if( $this->answers > 0 )
+        if( $this->answers_count > 0 )
         {
             if($this->best_answer_id)
             {

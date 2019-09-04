@@ -26,7 +26,7 @@
                                     <strong> {{ $question->votes }} </strong> {{ str_plural('vote', $question->votes) }}
                                 </div>
                                 <div class="status {{ $question->status }}">
-                                    <strong> {{ $question->answers }} </strong> {{ str_plural('answer', $question->answers) }}
+                                    <strong> {{ $question->answers_count }} </strong> {{ str_plural('answer', $question->answers_count) }}
                                 </div>
                                 <div class="view">
                                     {{ $question->votes ." ". str_plural('view', $question->views) }}
@@ -35,7 +35,7 @@
                             {{-- Question Parts --}}
                             <div class="media-body">
                                 {{-- <h3 class="mt-0"> <a href="{{ route('questions.show', $question->id) }}"> {{ $question->title }} ? </a> </h3> --}}
-                                {{-- look at: readme.md, line 20 {question->url, question->created_date, question->user->url}--}}
+                                {{-- look at: DOCUMENTATION.md, line 20 {question->url, question->created_date, question->user->url}--}}
                                 <div class="d-flex align-items-center">
                                     <h3 class="mt-0"> <a href="{{ $question->url }}"> {{ $question->title }}  </a> </h3>
                                     <div class="ml-auto">
@@ -49,7 +49,7 @@
 
                                             @if( Auth::user()->can('delete-question', $question) )
 
-                                                {{-- README.md , line: 80 --}}
+                                                {{-- DOCUMENTATION.md , line: 80 --}}
                                                 <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
                                                     @method('DELETE')
                                                     {{ csrf_field() }}
