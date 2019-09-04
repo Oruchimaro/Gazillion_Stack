@@ -155,3 +155,5 @@ user() ( 1 - M ) questions() { User ( 1 - M ) Question }
 question() ( 1 - M ) answers() { Question (1 - M) Answer }
 
 user() ( 1 - M ) answers() { User (1 - M) Answer }
+
+favorites() ( M - M ) favorites() {User (M - M) Question}

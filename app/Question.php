@@ -22,6 +22,14 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function favorites()
+    {
+        /*Many to Many Relations
+        *  $this->belongsToMany(Question::class, 'favorites', 'question_id', 'user_id') 
+        */
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps(); 
+    }
+
     /***************************************Helpers **************************************/
 
     public function acceptBestAnswer(Answer $answer)
@@ -30,7 +38,25 @@ class Question extends Model
         $this->save();
     }
 
+
+    public function isFavorited()
+    {
+        return $this->favorites()->where('user_id', auth()->id())->count();
+    }
+
+
     /**these accessors help format Elquent attribytes when we retrive them from model instances*/
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
+    }
+
+    public function getFaoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
+
     public function getUrlAttribute()
     {
         // return route('questions.show', $this->id);

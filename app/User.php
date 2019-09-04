@@ -38,6 +38,17 @@ class User extends Authenticatable
     }
 
 
+    public function favorites()
+    {
+        /*Many to Many Relations
+        * In  relations the arguments are modelName, tableName, foreignKeyOfModel, foreignLeyOfMdelThatISGEttingJoined
+        *  $this->belongsToMany(Question::class, 'favorites', 'user_id', 'question_id') 
+        *its usefull when the name of table and foreign keys are not defined as laravel convention
+        */
+        return $this->belongsToMany(Question::class, 'favorites')->withTimestamps(); 
+    }
+
+
     /***************************************Helpers **************************************/
     /**these accessors help format Elquent attribytes when we retrive them from model instances*/
     public function getUrlAttribute()
@@ -53,4 +64,9 @@ class User extends Authenticatable
         $size = 32;
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) ."&s=" . $size;
     }
+
+
+
+
+
 }//End of Model
