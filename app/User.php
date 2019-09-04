@@ -44,4 +44,13 @@ class User extends Authenticatable
     {
         return route('questions.show', $this->id);
     }
+
+
+
+    public function getAvatarAttribute()
+    { /**https://en.gravatar.com/site/implement/images/php/ */
+        $email = $this->email;
+        $size = 32;
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) ."&s=" . $size;
+    }
 }//End of Model

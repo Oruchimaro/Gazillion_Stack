@@ -39,4 +39,12 @@ class Answer extends Model
             // $answer->question->save(); this is not needed ,it will be ran behind the scene
         });
     }
+
+
+
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();  //created_at is a carbon instance, so diffForHumans or format("d/m/Y") will work
+    }
 }
