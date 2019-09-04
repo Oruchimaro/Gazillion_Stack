@@ -12,13 +12,31 @@
 
                         {{-- Votes Section  --}}
                         <div class="d-flex flex-column vote-controls my-auto">
-                            <a title="This answer is useful" class="vote-up ">
-                                <i class="far fa-thumbs-up fa-3x"></i>
+                            <a title="This answer is useful" class="vote-up {{ Auth::guest() ? 'off' : '' }}"
+                                onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{ $answer->id }}').submit(); ">
+                                <i class="fas fa-caret-up fa-3x"></i>
                             </a>
-                            <span class="votes-count  ">45</span>
-                            <a title="This answer is not useable" class="vote-down off "> 
-                                <i class="far fa-thumbs-down fa-3x"></i>
+                            <form id="up-vote-answer-{{ $answer->id }}" style="display:none;"
+                                action="/answers/{{ $answer->id }}/vote" method="POST">
+                                @csrf
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+                            
+
+                            <span class="votes-count  "> {{ $answer->votes_count }} </span>
+
+                            <a title="This answer is not useable" class="vote-down {{ Auth::guest() ? 'off' : '' }} "
+                            onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{ $answer->id }}').submit(); "> 
+                                <i class="fas fa-caret-down fa-3x"></i>
+                                
                             </a>
+                            <form id="down-vote-answer-{{ $answer->id }}" style="display:none;"
+                                action="/answers/{{ $answer->id }}/vote" method="POST">
+                                @csrf
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
+
+
                             @can('accept', $answer)
                                 <a title="Mark as best answer" class=" {{ $answer->status }} " 
                                     onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit(); "> 
