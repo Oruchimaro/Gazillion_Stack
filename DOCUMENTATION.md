@@ -147,6 +147,15 @@ its easy from there.
         $ composer require doctrine/dbal //this package is needed
         $ php artisan make:migration rename_answers_in_questions_table --table=questions
 
+
+
+
+
+
+---->* for ordering answers in answers/_index.blade.php  we can eigther use  query2 in 
+    * RouteServicePRovider.php boot() method  with the orderBy(), or we can use the query1 and add orderBy() method to 
+    * answers() relationship method in Question.php model.
+
 ###################################################################################################################################
 
 #relations
@@ -157,3 +166,5 @@ question() ( 1 - M ) answers() { Question (1 - M) Answer }
 user() ( 1 - M ) answers() { User (1 - M) Answer }
 
 favorites() ( M - M ) favorites() {User (M - M) Question}
+
+user()  (Polymorphic M-M) Question & Answer votes.  { User P(M - M) Question&Answer }

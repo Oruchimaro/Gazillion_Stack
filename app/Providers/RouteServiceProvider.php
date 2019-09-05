@@ -30,10 +30,19 @@ class RouteServiceProvider extends ServiceProvider
             // return $question ? $question : abort(404);
 
             /**simplified form of above code 
-             * the 'with()' method is for queries to better.
-            */
-            return Question::with('answers.user')  /**this means from Question model go to Answer and then User model */
-            ->where('slug', $slug)->first() ?? abort(404);
+             * the 'with()' method is for better queries
+             * with('answers.user') means from Question model go to Answer and then User model
+             * 
+             * 
+             * Documentation.md line: 155
+             */
+
+            // return Question::with('answers.user')->where('slug', $slug)->first() ?? abort(404);      //query1
+
+            return Question::with(['answers.user', 'answers' => function($query){                       //query2
+                $query->orderBy('votes_count', 'DESC');
+            } ])->where('slug', $slug)->first() ?? abort(404); 
+
         });
 
         parent::boot();

@@ -18,7 +18,8 @@
                     {{-- message partial --}}
                     @include('layouts._message')
 
-                    @foreach ($questions as $question) 
+                    <!--Questions Section -->
+                    @forelse ($questions as $question) 
                         <div class="media">
                             {{-- Vote Conter --}}
                             <div class="d-flex flex-column counters" >
@@ -72,9 +73,14 @@
                                 <!-- -->
                                 <div class="excerpt" >{{ $question->excerpt(350) }}</div>
                             </div>
+                        </div><hr>
+                    @empty
+                        <div class="alert alert-warning">
+                            <strong>Sorry!!!</strong> <p>There IS No Questions Available.</p>
                         </div>
-                        <hr>
-                    @endforeach
+                    @endforelse
+                    <!--End Questions Section -->
+
                     <div class="">
                         {{ $questions->links() }}
                     </div>
