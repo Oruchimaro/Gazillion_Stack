@@ -10733,3 +10733,11 @@ form.form-delete {
   color: #38c172;
 }
 
+.post {
+  padding: 20px 0;
+}
+
+.post:not(:last-child) {
+  border-bottom: 3px solid rgba(51, 51, 51, 0.1);
+}
+
