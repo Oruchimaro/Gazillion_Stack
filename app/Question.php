@@ -91,7 +91,23 @@ class Question extends Model
 
     public function getBodyHtmlAttribute ()
     {
+        return clean($this->bodyHtml());
+    }
+
+
+    public function getExcerptAttribute ()
+    {
+        return $this->excerpt(250);
+    }
+
+    private function bodyHtml()
+    {
         return \Parsedown::instance()->text($this->body);
+    }
+
+    public function excerpt ($length)
+    {
+        return str_limit(strip_tags($this->bodyHtml()), $length); 
     }
 
 
@@ -103,6 +119,11 @@ class Question extends Model
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);  //str_slug converts string to slug format{lowercase with dash seperator}
     }
+
+    // public function setBodyAttribute($value)
+    // {
+    //     $this->attributes['body'] = clean($value); 
+    // }
 
 
 
