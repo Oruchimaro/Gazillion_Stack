@@ -32,7 +32,15 @@ class AnswerController extends Controller
             'body' => 'required'
         ]);
 
-        $question->answers()->create(['body' => $request->body, 'user_id' => \Auth::user()->id ]);
+        $answer = $question->answers()->create(['body' => $request->body, 'user_id' => \Auth::user()->id ]);
+
+        if($request->expectsJson())
+        {
+            return response()->json([
+                'message' => 'This answer is submitted .',
+                'answer' => $answer->load('user')  //to eager load user relation with this answer for user-info component
+            ]);
+        }
         return back()->with('success', "This answer is submitted .");
     }
 
