@@ -1,9 +1,7 @@
 <answer :answer="{{ $answer }}" inline-template>
     <div class="media post">
         <!-- Vote Controls section -->
-        @include('shared._vote', [
-            'model' => $answer
-        ])
+        <vote :model="{{ $answer }}" name="answer"></vote>
         <!-- End Vote Controls section -->
     
         <div class="media-body">

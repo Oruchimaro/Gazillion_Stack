@@ -18,9 +18,7 @@
                     <div class="mdeia d-flex ">
 
                         <!-- Vote Controls section -->
-                        @include('shared._vote', [
-                            'model' => $question
-                        ])
+                        <vote :model="{{ $question }}" name="question"></vote>
                         <!-- End Vote Controls section -->
                         
                         <div class="media-body">
