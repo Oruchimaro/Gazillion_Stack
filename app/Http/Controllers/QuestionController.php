@@ -47,6 +47,7 @@ class QuestionController extends Controller
         // $question->save();
 
         $question->increment('views'); //this is the same as the above code, its cleaner
+        // dd($question);
         return view('questions.show', compact('question'));
     }
 

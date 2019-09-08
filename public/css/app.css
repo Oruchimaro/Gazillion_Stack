@@ -10741,3 +10741,7 @@ form.form-delete {
   border-bottom: 3px solid rgba(51, 51, 51, 0.1);
 }
 
+[v-cloak] {
+  display: none;
+}
+

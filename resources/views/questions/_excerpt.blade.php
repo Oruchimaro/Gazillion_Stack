@@ -19,24 +19,28 @@
         <div class="d-flex align-items-center">
             <h3 class="mt-0"> <a href="{{ $question->url }}"> {{ $question->title }}  </a> </h3>
             <div class="ml-auto">
-
+                @guest
+                @else
                 <!--Edit and delete  -->
-                    @if( Auth::user()->can('update-question', $question) )
-                        <a class="btn btn-sm btn-outline-info" href=" {{ route('questions.edit', $question->id ) }} "> Edit </a>
-                    @endif
+                @if( Auth::user()->can('update-question', $question) )
+                    <a class="btn btn-sm btn-outline-info" href=" {{ route('questions.edit', $question->id ) }} "> Edit </a>
+                @endif
 
-                    @if( Auth::user()->can('delete-question', $question) )
+                @if( Auth::user()->can('delete-question', $question) )
 
-                        {{-- DOCUMENTATION.md , line: 80 --}}
-                        <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
-                            @method('DELETE')
-                            {{ csrf_field() }}
+                    {{-- DOCUMENTATION.md , line: 80 --}}
+                    <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                        @method('DELETE')
+                        {{ csrf_field() }}
 
-                            <button type="submit" class="btn btn-sm btn-outline-danger" 
-                            onclick="return confirm('Are you sure?')">Delete</button>
-                        </form>
-                    @endif
-                <!--End Edit and Delete -->
+                        <button type="submit" class="btn btn-sm btn-outline-danger" 
+                        onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                @endif
+                 <!--End Edit and Delete -->
+                @endguest
+                
+                    
             </div>
         </div>
         

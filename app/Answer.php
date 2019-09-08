@@ -14,6 +14,11 @@ class Answer extends Model
         'user_id'
     ];
 
+    protected $appends = [
+        'created_date',
+        'body_html'
+    ];
+
     /***************************************Relations **************************************/
     public function question()
     {

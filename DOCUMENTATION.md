@@ -80,7 +80,7 @@ its easy from there.
 ---->cause we have a destroy mehtod in resource controller , for deleting  we send a delete request to controller
     so we need a a form for it .take notice to csrf filed and method filed
     we can use {{ csrf_field() }} or @csrf 
-    also we can user {{ method_field('') }}  or @method('')
+    also we can user {{ method_field('') }}  or @method('') ---->No NEED FOR THIS, WE ARE SENDING WITH AJAX NOW!!!FORM DELETED
 
 
 ---->we want to make urls user freindly, so we will use slug instead of id for QuestionController@show.
