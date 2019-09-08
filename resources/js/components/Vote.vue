@@ -62,7 +62,7 @@ export default {
                 });
                 return;
             }
-            axios.post(this.endpoint, { vote })
+             axios.post(this.endpoint, { vote })
             .then(res => {
                 this.$toast.success(res.data.message, "Success", {
                     timeout: 3000,
