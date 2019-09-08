@@ -1,5 +1,5 @@
 <template>
-    <div class="d-fex flex-column vote-controls">
+    <div class="d-flex flex-column vote-controls my-auto">
         <a @click.prevent="voteUp" :title="title('up')" 
             class="vote-up" :class="classes">
             <i class="fas fa-caret-up fa-3x"></i>
