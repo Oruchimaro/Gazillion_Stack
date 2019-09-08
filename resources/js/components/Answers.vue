@@ -8,7 +8,7 @@
                     </div>
                     <hr>
                     <!--Answers Section -->
-                    <answer v-for="answer in answers"  :answer="answer" :key="answer.id"></answer>
+                    <answer v-on:deleted="remove(index)" v-for="(answer, index) in answers"  :answer="answer" :key="answer.id"></answer>
                     <!--End Answers Section -->
 
                     <div class="text-center mt-3" v-if="nextUrl">
@@ -48,6 +48,11 @@ export default {
                 this.nextUrl = data.next_page_url;
             })
         },
+
+        remove(index){
+            this.answers.splice(index, 1);
+            this.count--;
+        }
     },
 
     computed: {
