@@ -15,6 +15,8 @@ class Question extends Model
 
     protected $appends = [
         'created_date',
+        'is_favorited',
+        'favorites_count'
     ];
 
     /***************************************Relations **************************************/
@@ -57,7 +59,7 @@ class Question extends Model
         return $this->isFavorited();
     }
 
-    public function getFaoritesCountAttribute()
+    public function getFavoritesCountAttribute()
     {
         return $this->favorites->count();
     }
